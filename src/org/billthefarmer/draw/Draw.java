@@ -3,9 +3,11 @@ package org.billthefarmer.draw;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
+import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -18,6 +20,11 @@ public class Draw extends View
     private Path path;
     private RectF rect;
 
+    private LinearGradient black;
+    private LinearGradient darkgreen;
+    private LinearGradient green;
+    private LinearGradient yellow;
+
     public Draw(Context context, AttributeSet attrs)
     {
 	super(context, attrs);
@@ -27,6 +34,23 @@ public class Draw extends View
 	paint = new Paint();
 	path = new Path();
 	rect = new RectF(-224, -224, 224, 224);
+
+	black = new LinearGradient(0, 0, 0, -512,
+				   Color.BLACK,
+				   Color.WHITE,
+				   Shader.TileMode.CLAMP);
+	darkgreen = new LinearGradient(0, 0, 0, -512,
+				       Color.rgb(0, 128, 0),
+				       Color.WHITE,
+				       Shader.TileMode.CLAMP);
+	green = new LinearGradient(0, 0, 0, -512,
+				   Color.GREEN,
+				   Color.WHITE,
+				   Shader.TileMode.CLAMP);
+	yellow = new LinearGradient(0, 0, 0, -512,
+				    Color.YELLOW,
+				    Color.WHITE,
+				    Shader.TileMode.CLAMP);
     }
 
     @Override
@@ -34,7 +58,7 @@ public class Draw extends View
     {
 	super.onSizeChanged(w, h, oldw, oldh);
 
-	// Get dinemsions
+	// Get dimensions
 
 	width = w;
 	height = h;
@@ -46,14 +70,14 @@ public class Draw extends View
 	canvas.drawColor(Color.WHITE);
 	canvas.translate(width / 2, height / 2);
 
-	paint.setColor(Color.BLACK);
+	paint.setShader(black);
 	paint.setStyle(Paint.Style.FILL);
 	paint.setAntiAlias(true);
 	canvas.drawRoundRect(rect, 64, 64, paint);
 	canvas.clipRect(rect);
 
 	paint.setStyle(Paint.Style.STROKE);
-	paint.setColor(Color.rgb(0, 128, 0));
+	paint.setShader(darkgreen);
 	paint.setStrokeWidth(8);
 
 	for (int i = -160; i <= 160; i += 64)
@@ -76,10 +100,10 @@ public class Draw extends View
 	    path.lineTo(x, y);
 	}
 
-	paint.setColor(Color.GREEN);
+	paint.setShader(green);
 	canvas.drawPath(path, paint);
 
-	paint.setColor(Color.YELLOW);
+	paint.setShader(yellow);
 	canvas.drawLine(-48, -224, -48, 224, paint);
     }
 }
