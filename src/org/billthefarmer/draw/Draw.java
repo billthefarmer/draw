@@ -67,7 +67,7 @@ public class Draw extends View
     @Override
     protected void onDraw(Canvas canvas)
     {
-	canvas.drawColor(Color.WHITE);
+	// canvas.drawColor(Color.GRAY);
 	canvas.translate(width / 2, height / 2);
 
 	paint.setShader(black);
@@ -90,7 +90,7 @@ public class Draw extends View
 	path.moveTo(-224, 160);
 
 	float a = 320;
-	float b = -48;
+	float b = -64;
 	float c = 32;
 
 	for (int x = -224; x <= 224; x++)
@@ -104,6 +104,6 @@ public class Draw extends View
 	canvas.drawPath(path, paint);
 
 	paint.setShader(yellow);
-	canvas.drawLine(-48, -224, -48, 224, paint);
+	canvas.drawLine(-64, -224, -64, 224, paint);
     }
 }
