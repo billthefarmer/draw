@@ -13,6 +13,9 @@ import android.view.View;
 
 public class Draw extends View
 {
+    public static int STEP = 64;
+    public static int ICON_WIDTH = 224;
+
     private int width;
     private int height;
 
@@ -33,21 +36,21 @@ public class Draw extends View
 
 	paint = new Paint();
 	path = new Path();
-	rect = new RectF(-224, -224, 224, 224);
+	rect = new RectF(-ICON_WIDTH, -ICON_WIDTH, ICON_WIDTH, ICON_WIDTH);
 
-	black = new LinearGradient(0, 0, 0, -512,
+	black = new LinearGradient(0, 0, 0, -Main.WIDTH,
 				   Color.BLACK,
 				   Color.WHITE,
 				   Shader.TileMode.CLAMP);
-	darkgreen = new LinearGradient(0, 0, 0, -512,
+	darkgreen = new LinearGradient(0, 0, 0, -Main.WIDTH,
 				       Color.rgb(0, 128, 0),
 				       Color.WHITE,
 				       Shader.TileMode.CLAMP);
-	green = new LinearGradient(0, 0, 0, -512,
+	green = new LinearGradient(0, 0, 0, -Main.WIDTH,
 				   Color.GREEN,
 				   Color.WHITE,
 				   Shader.TileMode.CLAMP);
-	yellow = new LinearGradient(0, 0, 0, -512,
+	yellow = new LinearGradient(0, 0, 0, -Main.WIDTH,
 				    Color.YELLOW,
 				    Color.WHITE,
 				    Shader.TileMode.CLAMP);
@@ -70,33 +73,38 @@ public class Draw extends View
 	// canvas.drawColor(Color.GRAY);
 	canvas.translate(width / 2, height / 2);
 
+	drawIcon(canvas);
+    }
+
+    protected void drawIcon(Canvas canvas)
+    {
 	paint.setShader(black);
 	paint.setStyle(Paint.Style.FILL);
 	paint.setAntiAlias(true);
-	canvas.drawRoundRect(rect, 64, 64, paint);
+	canvas.drawRoundRect(rect, STEP, STEP, paint);
 	canvas.clipRect(rect);
 
 	paint.setStyle(Paint.Style.STROKE);
 	paint.setShader(darkgreen);
 	paint.setStrokeWidth(8);
 
-	for (int i = -160; i <= 160; i += 64)
-	    canvas.drawLine(i, -224, i, 224, paint);
+	for (int i = -(ICON_WIDTH - STEP); i <= ICON_WIDTH - STEP; i += STEP)
+	    canvas.drawLine(i, -ICON_WIDTH, i, ICON_WIDTH, paint);
 
-	for (int i = -160; i <= 160; i += 64)
-	    canvas.drawLine(-224, i, 224, i, paint);
+	for (int i = -(ICON_WIDTH - STEP); i <= ICON_WIDTH - STEP; i += STEP)
+	    canvas.drawLine(-ICON_WIDTH, i, ICON_WIDTH, i, paint);
 
 	path.rewind();
-	path.moveTo(-224, 160);
+	path.moveTo(-ICON_WIDTH, ICON_WIDTH - STEP);
 
 	float a = 320;
-	float b = -64;
+	float b = -STEP;
 	float c = 32;
 
-	for (int x = -224; x <= 224; x++)
+	for (int x = -ICON_WIDTH; x <= ICON_WIDTH; x++)
 	{
-	    float y = 160 - a * (float)Math.exp(-((x - b) * (x - b)) /
-						(2 * c * c));
+	    float y = ICON_WIDTH - STEP - a *
+		(float)Math.exp(-((x - b) * (x - b)) / (2 * c * c));
 	    path.lineTo(x, y);
 	}
 
@@ -104,6 +112,6 @@ public class Draw extends View
 	canvas.drawPath(path, paint);
 
 	paint.setShader(yellow);
-	canvas.drawLine(-64, -224, -64, 224, paint);
+	canvas.drawLine(-STEP, -ICON_WIDTH, -STEP, ICON_WIDTH, paint);
     }
 }
