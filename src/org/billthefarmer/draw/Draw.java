@@ -13,8 +13,8 @@ import android.view.View;
 
 public class Draw extends View
 {
-    public static int STEP = 64;
-    public static int ICON_WIDTH = 224;
+    public static final int STEP = 64;
+    public static final int ICON_WIDTH = 224;
 
     private int width;
     private int height;
