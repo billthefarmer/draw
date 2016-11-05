@@ -1,0 +1,16 @@
+language: android
+android:
+  components:
+  - platform-tools
+  - tools
+  - build-tools-24.0.2
+  - android-17
+script:
+- ant release
+deploy:
+  provider: releases
+  api_key:
+    secure: PAmsoFZHiYdXS1L1JwK274O3bDHQgiWTO7JPg6uoZpr+O3b5HK67dudzlxhJvUxS2NRc2wokH7HiZm2oRI/aPNCVZh2PyLlV11LBctNmU/1ITqaTqV6SPKGONVrEnRooLVx3K6AlJ12RFDl2h0Y6jx8pc9YmO4oW5NdItAvGydwnpYoHyyLCJ+FZcmsF+VUV4kEAwaLwpSS8UnVa6bmpoCtMCah7kNJXRdtG4zI7lJUcLfSyo+i2du/NGJ4t/X75ySIz0lT9HNyZP91mcFmDkiGy2BP+QZvy0TINzFADMiwxic9zdMaLtkKL/iA/bbjxWpVY1HUbiqlewik0swQeO5VSH4vpmMtp5we4VmU4v8hbg5JyLe7kP7hPPtF4XGhDz3omrIu25/uS0n+EByS0vkHOAXj2xUWDCfA7fBWgUpOI4RMDJj+TXH5nM3usJxq6jsjuP1kD2BZ2lKQ8Yfc/uPwd/Q2RYIZSWPxbLb01GyJ9hLR3a/zS8o0vQC9Qind2TrykopH8TlevNDOpxkmReoC2JrFiBLyz6Xp90O/zZlm5Z47utbo9i/KpBqJsmTIQN3ov2wRMtJq5k13PHYtuHp5cCZ5naBAd4PsTfzhAb/RG9I0peBCmX/haidz5IlyasN0r8haXU51B0LDAWm21H9GiCQGymuCnNMoO6JfanuY=
+  file: bin/Draw-release-unsigned.apk
+  on:
+    repo: billthefarmer/draw
