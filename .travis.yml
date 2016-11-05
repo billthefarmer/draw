@@ -6,7 +6,7 @@ android:
   - build-tools-24.0.2
   - android-17
 script:
-- ant release
+  - ant release
 deploy:
   provider: releases
   api_key:
