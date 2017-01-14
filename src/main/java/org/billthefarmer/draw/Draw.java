@@ -7,6 +7,7 @@ import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
+import android.graphics.Region;
 import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.view.View;
@@ -21,7 +22,10 @@ public class Draw extends View
 
     private Paint paint;
     private Path path;
+
     private RectF rect;
+    private RectF topRight;
+    private RectF bottomLeft;
 
     private LinearGradient black;
     private LinearGradient darkgreen;
@@ -41,7 +45,11 @@ public class Draw extends View
 
 	paint = new Paint();
 	path = new Path();
+
 	rect = new RectF(-ICON_WIDTH, -ICON_WIDTH, ICON_WIDTH, ICON_WIDTH);
+
+	topRight = new RectF(0, -ICON_WIDTH, ICON_WIDTH, 0);
+	bottomLeft = new RectF(-ICON_WIDTH, 0, 0, ICON_WIDTH);
 
 	black = new LinearGradient(0, 0, 0, -Main.WIDTH,
 				   Color.BLACK,
@@ -96,11 +104,25 @@ public class Draw extends View
     protected void onDraw(Canvas canvas)
     {
 	canvas.translate(width / 2, height / 2);
-
 	drawIcon(canvas);
     }
 
     protected void drawIcon(Canvas canvas)
+    {
+	paint.setStyle(Paint.Style.FILL);
+	paint.setAntiAlias(true);
+
+	paint.setShader(olive);
+	canvas.drawRoundRect(rect, STEP, STEP, paint);
+
+	canvas.clipRect(topRight);
+	paint.setShader(aqua);
+	canvas.drawRoundRect(rect, STEP, STEP, paint);
+	canvas.clipRect(bottomLeft, Region.Op.REPLACE);
+	canvas.drawRoundRect(rect, STEP, STEP, paint);
+    }
+
+    protected void drawTunerIcon(Canvas canvas)
     {
 	paint.setShader(black);
 	paint.setStyle(Paint.Style.FILL);
