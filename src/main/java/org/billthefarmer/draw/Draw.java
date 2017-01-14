@@ -14,7 +14,7 @@ import android.view.View;
 public class Draw extends View
 {
     public static final int STEP = 64;
-    public static final int ICON_WIDTH = 224;
+    public static final int ICON_WIDTH = 240;
 
     private int width;
     private int height;
@@ -27,6 +27,11 @@ public class Draw extends View
     private LinearGradient darkgreen;
     private LinearGradient green;
     private LinearGradient yellow;
+    private LinearGradient blue;
+    private LinearGradient cyan;
+    private LinearGradient magenta;
+    private LinearGradient olive;
+    private LinearGradient aqua;
 
     public Draw(Context context, AttributeSet attrs)
     {
@@ -54,6 +59,26 @@ public class Draw extends View
 				    Color.YELLOW,
 				    Color.WHITE,
 				    Shader.TileMode.CLAMP);
+ 	blue = new LinearGradient(0, 0, 0, -Main.WIDTH,
+				    Color.BLUE,
+				    Color.WHITE,
+				    Shader.TileMode.CLAMP);
+ 	cyan = new LinearGradient(0, 0, 0, -Main.WIDTH,
+				    Color.CYAN,
+				    Color.WHITE,
+				    Shader.TileMode.CLAMP);
+ 	magenta = new LinearGradient(0, 0, 0, -Main.WIDTH,
+				    Color.MAGENTA,
+				    Color.WHITE,
+				    Shader.TileMode.CLAMP);
+ 	olive = new LinearGradient(0, 0, 0, -Main.WIDTH,
+				    0xff6f6f00,
+				    Color.WHITE,
+				    Shader.TileMode.CLAMP);
+ 	aqua = new LinearGradient(0, 0, 0, -Main.WIDTH,
+				    0xffbfffbf,
+				    Color.WHITE,
+				    Shader.TileMode.CLAMP);
     }
 
     @Override
@@ -70,7 +95,6 @@ public class Draw extends View
     @Override
     protected void onDraw(Canvas canvas)
     {
-	// canvas.drawColor(Color.GRAY);
 	canvas.translate(width / 2, height / 2);
 
 	drawIcon(canvas);

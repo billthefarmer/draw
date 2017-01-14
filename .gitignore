@@ -2,6 +2,7 @@
 .*
 bin
 gen
+build
 libs
-ant.properties
+gradle.properties
 local.properties
