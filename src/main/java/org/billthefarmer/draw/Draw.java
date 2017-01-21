@@ -1,3 +1,4 @@
+
 package org.billthefarmer.draw;
 
 import android.content.Context;
@@ -26,10 +27,13 @@ public class Draw extends View
     private Path path;
 
     private RectF rect;
+    private RectF topLeft;
     private RectF topRight;
     private RectF bottomLeft;
+    private RectF bottomRight;
 
     private LinearGradient black;
+    private LinearGradient white;
     private LinearGradient darkgreen;
     private LinearGradient green;
     private LinearGradient yellow;
@@ -50,11 +54,17 @@ public class Draw extends View
 
 	rect = new RectF(-ICON_WIDTH, -ICON_WIDTH, ICON_WIDTH, ICON_WIDTH);
 
+	topLeft = new RectF(-ICON_WIDTH, -ICON_WIDTH, 0, 0);
 	topRight = new RectF(0, -ICON_WIDTH, ICON_WIDTH, 0);
 	bottomLeft = new RectF(-ICON_WIDTH, 0, 0, ICON_WIDTH);
+	bottomRight = new RectF(0, 0, ICON_WIDTH, ICON_WIDTH);
 
 	black = new LinearGradient(0, 0, 0, -Main.WIDTH,
 				   Color.BLACK,
+				   Color.WHITE,
+				   Shader.TileMode.CLAMP);
+	white = new LinearGradient(0, 0, 0, -Main.WIDTH,
+				   Color.rgb(192, 192, 192),
 				   Color.WHITE,
 				   Shader.TileMode.CLAMP);
 	darkgreen = new LinearGradient(0, 0, 0, -Main.WIDTH,
@@ -99,7 +109,6 @@ public class Draw extends View
 	super.onSizeChanged(w, h, oldw, oldh);
 
 	// Get dimensions
-
 	width = w;
 	height = h;
     }
@@ -115,12 +124,40 @@ public class Draw extends View
     {
 	paint.setStyle(Paint.Style.FILL);
 	paint.setAntiAlias(true);
+	paint.setShader(null);
+  	paint.setColor(Color.WHITE);
+        canvas.drawRoundRect(rect, STEP, STEP, paint);;
+
+	paint.setShader(black);
+	paint.setStyle(Paint.Style.STROKE);
+	paint.setStrokeWidth(24);
+	canvas.drawRoundRect(rect, STEP, STEP, paint);
+        canvas.drawLine(0, -ICON_WIDTH, 0, ICON_WIDTH, paint);
+        canvas.drawLine(-ICON_WIDTH, 0, ICON_WIDTH, 0, paint);
+
+        paint.setTextSize(ICON_WIDTH / 2);
+	paint.setStrokeWidth(8);
+  	paint.setShader(null);
+  	paint.setColor(Color.BLACK);
+	paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        canvas.drawText("1", -ICON_WIDTH * 7 / 8, -ICON_WIDTH / 2,
+                        paint);
+
+	canvas.clipRect(bottomRight);
+	paint.setShader(black);
+	paint.setStyle(Paint.Style.FILL);
+	canvas.drawRoundRect(rect, STEP, STEP, paint);
+    }
+
+    protected void drawScopeIcon(Canvas canvas)
+    {
+	paint.setStyle(Paint.Style.FILL);
+	paint.setAntiAlias(true);
 
 	paint.setShader(black);
 	canvas.drawRoundRect(rect, STEP, STEP, paint);
 	// canvas.clipRect(rect);
 
-	paint.setStyle(Paint.Style.STROKE);
 	paint.setStrokeCap(Paint.Cap.BUTT);
 	paint.setShader(darkgreen);
 	paint.setStrokeWidth(8);
@@ -154,7 +191,6 @@ public class Draw extends View
 
 	paint.setShader(black);
 	canvas.drawRoundRect(rect, STEP, STEP, paint);
-	// canvas.clipRect(rect);
 
 	paint.setStyle(Paint.Style.STROKE);
 	paint.setStrokeCap(Paint.Cap.BUTT);
