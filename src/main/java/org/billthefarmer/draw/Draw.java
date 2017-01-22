@@ -18,7 +18,7 @@ public class Draw extends View
     public static final int STEP = 64;
     public static final int XSTEP = 56;
     public static final int YSTEP = 48;
-    public static final int ICON_WIDTH = 224;
+    public static final int ICON_WIDTH = 240;
 
     private int width;
     private int height;
@@ -130,10 +130,17 @@ public class Draw extends View
 
 	paint.setShader(black);
 	paint.setStyle(Paint.Style.STROKE);
-	paint.setStrokeWidth(24);
+	paint.setStrokeWidth(16);
 	canvas.drawRoundRect(rect, STEP, STEP, paint);
-        canvas.drawLine(0, -ICON_WIDTH, 0, ICON_WIDTH, paint);
-        canvas.drawLine(-ICON_WIDTH, 0, ICON_WIDTH, 0, paint);
+
+        canvas.drawLine(-ICON_WIDTH / 3, -ICON_WIDTH, -ICON_WIDTH / 3,
+                        ICON_WIDTH, paint);
+        canvas.drawLine(ICON_WIDTH / 3, -ICON_WIDTH, ICON_WIDTH / 3,
+                        ICON_WIDTH, paint);
+        canvas.drawLine(-ICON_WIDTH, -ICON_WIDTH / 3, ICON_WIDTH,
+                        -ICON_WIDTH / 3, paint);
+        canvas.drawLine(-ICON_WIDTH, ICON_WIDTH / 3, ICON_WIDTH,
+                        ICON_WIDTH / 3, paint);
 
         paint.setTextSize(ICON_WIDTH / 2);
 	paint.setStrokeWidth(8);
@@ -142,11 +149,16 @@ public class Draw extends View
 	paint.setStyle(Paint.Style.FILL_AND_STROKE);
         canvas.drawText("1", -ICON_WIDTH * 7 / 8, -ICON_WIDTH / 2,
                         paint);
+        canvas.drawText("2", ICON_WIDTH * 7 / 16, -ICON_WIDTH / 2,
+                        paint);
+        canvas.drawText("3", -ICON_WIDTH * 7 / 8, ICON_WIDTH * 13 / 16,
+                        paint);
 
-	canvas.clipRect(bottomRight);
+	// canvas.clipRect(bottomRight);
 	paint.setShader(black);
 	paint.setStyle(Paint.Style.FILL);
-	canvas.drawRoundRect(rect, STEP, STEP, paint);
+	canvas.drawRect(-ICON_WIDTH / 3, -ICON_WIDTH / 3,
+                        ICON_WIDTH / 3, ICON_WIDTH / 3, paint);
     }
 
     protected void drawScopeIcon(Canvas canvas)
