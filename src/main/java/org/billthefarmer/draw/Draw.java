@@ -20,6 +20,12 @@ public class Draw extends View
     public static final int YSTEP = 48;
     public static final int ICON_WIDTH = 240;
 
+    private static final int colours[] =
+    {
+        Color.MAGENTA, Color.BLUE, Color.CYAN,
+        Color.GREEN, Color.YELLOW, Color.RED
+    };
+
     private int width;
     private int height;
 
@@ -42,6 +48,7 @@ public class Draw extends View
     private LinearGradient magenta;
     private LinearGradient olive;
     private LinearGradient aqua;
+    private LinearGradient spectrum;
 
     public Draw(Context context, AttributeSet attrs)
     {
@@ -101,6 +108,10 @@ public class Draw extends View
 				  // 0xffbfffbf,
 				  Color.WHITE,
 				  Shader.TileMode.CLAMP);
+        spectrum = new LinearGradient(ICON_WIDTH, ICON_WIDTH,
+                                      -ICON_WIDTH, -ICON_WIDTH,
+                                      colours, null,
+                                      Shader.TileMode.CLAMP);
     }
 
     @Override
@@ -121,6 +132,14 @@ public class Draw extends View
     }
 
     protected void drawIcon(Canvas canvas)
+    {
+	paint.setStyle(Paint.Style.FILL);
+	paint.setAntiAlias(true);
+	paint.setShader(spectrum);
+        canvas.drawRoundRect(rect, STEP, STEP, paint);;
+    }
+
+    protected void drawCrosswordIcon(Canvas canvas)
     {
 	paint.setStyle(Paint.Style.FILL);
 	paint.setAntiAlias(true);
@@ -154,7 +173,6 @@ public class Draw extends View
         canvas.drawText("3", -ICON_WIDTH * 7 / 8, ICON_WIDTH * 13 / 16,
                         paint);
 
-	// canvas.clipRect(bottomRight);
 	paint.setShader(black);
 	paint.setStyle(Paint.Style.FILL);
 	canvas.drawRect(-ICON_WIDTH / 3, -ICON_WIDTH / 3,
