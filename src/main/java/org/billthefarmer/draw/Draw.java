@@ -133,6 +133,62 @@ public class Draw extends View
 
     protected void drawIcon(Canvas canvas)
     {
+	// Square
+	path.rewind();
+	path.moveTo(-ICON_WIDTH, 0);
+        path.lineTo(0, -YSTEP * 3);
+        path.lineTo(0, YSTEP * 3);
+        path.lineTo(ICON_WIDTH, 0);
+
+	paint.setShader(null);
+  	paint.setColor(Color.argb(153, 51, 51, 51));
+	paint.setStrokeWidth(16);
+	paint.setStyle(Paint.Style.STROKE);
+	paint.setStrokeCap(Paint.Cap.ROUND);
+	canvas.drawPath(path, paint);
+    }
+
+    protected void drawSquareIcon(Canvas canvas)
+    {
+	// Square
+	path.rewind();
+	path.moveTo(-ICON_WIDTH, 0);
+        path.lineTo(-ICON_WIDTH, -YSTEP * 3);
+        path.lineTo(0, -YSTEP * 3);
+        path.lineTo(0, YSTEP * 3);
+        path.lineTo(ICON_WIDTH, YSTEP * 3);
+        path.lineTo(ICON_WIDTH, 0);
+
+	paint.setShader(null);
+  	paint.setColor(Color.argb(153, 51, 51, 51));
+	paint.setStrokeWidth(16);
+	paint.setStyle(Paint.Style.STROKE);
+	paint.setStrokeCap(Paint.Cap.ROUND);
+	canvas.drawPath(path, paint);
+    }
+
+    protected void drawSineIcon(Canvas canvas)
+    {
+	// Sine
+	path.rewind();
+	path.moveTo(-ICON_WIDTH, 0);
+	for (int x = -ICON_WIDTH; x <= ICON_WIDTH; x++)
+	{
+	    float y = (float)
+		Math.sin(x * 1 * Math.PI / ICON_WIDTH) * YSTEP * 3;
+	    path.lineTo(x, y);
+	}
+
+	paint.setShader(null);
+  	paint.setColor(Color.argb(153, 51, 51, 51));
+	paint.setStrokeWidth(16);
+	paint.setStyle(Paint.Style.STROKE);
+	paint.setStrokeCap(Paint.Cap.ROUND);
+	canvas.drawPath(path, paint);
+    }
+
+    protected void drawRainbowIcon(Canvas canvas)
+    {
 	paint.setStyle(Paint.Style.FILL);
 	paint.setAntiAlias(true);
 	paint.setShader(spectrum);
