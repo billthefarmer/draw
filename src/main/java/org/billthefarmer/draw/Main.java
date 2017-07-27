@@ -60,8 +60,7 @@ public class Main extends Activity
 	}
     }
 
-    // Save
-
+    // saveIcon
     private void saveIcon()
     {
 	Bitmap bitmap =
@@ -72,7 +71,7 @@ public class Main extends Activity
 	canvas.translate(WIDTH / 2, WIDTH / 2);
 
 	if (draw != null)
-	    draw.drawIcon(canvas);
+	    draw.drawHistogramIcon(canvas);
 
 	try
 	{

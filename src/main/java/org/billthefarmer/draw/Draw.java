@@ -5,11 +5,13 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.LinearGradient;
+import android.graphics.RadialGradient;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
 import android.graphics.Region;
 import android.graphics.Shader;
+import android.graphics.Typeface;
 import android.util.AttributeSet;
 import android.view.View;
 
@@ -18,7 +20,7 @@ public class Draw extends View
     public static final int STEP = 64;
     public static final int XSTEP = 56;
     public static final int YSTEP = 48;
-    public static final int ICON_WIDTH = 240;
+    public static final int ICON_WIDTH = 256;
 
     private static final int colours[] =
     {
@@ -49,6 +51,12 @@ public class Draw extends View
     private LinearGradient olive;
     private LinearGradient aqua;
     private LinearGradient spectrum;
+    private LinearGradient histogram;
+
+    private RadialGradient redOrange;
+    private RadialGradient orangeYellow;
+    private RadialGradient yellowGreen;
+    private RadialGradient greenBlue;
 
     public Draw(Context context, AttributeSet attrs)
     {
@@ -108,10 +116,29 @@ public class Draw extends View
 				  // 0xffbfffbf,
 				  Color.WHITE,
 				  Shader.TileMode.CLAMP);
+
         spectrum = new LinearGradient(ICON_WIDTH, ICON_WIDTH,
                                       -ICON_WIDTH, -ICON_WIDTH,
                                       colours, null,
                                       Shader.TileMode.CLAMP);
+
+        redOrange = new RadialGradient(0, 0, ICON_WIDTH,
+                                       Color.RED, Color.rgb(255,127,0),
+                                       Shader.TileMode.CLAMP);
+        orangeYellow = new RadialGradient(0, 0, ICON_WIDTH,
+                                          Color.rgb(255,127,0), Color.YELLOW,
+                                          Shader.TileMode.CLAMP);
+        yellowGreen = new RadialGradient(0, 0, ICON_WIDTH * 2,
+                                         Color.YELLOW, Color.GREEN,
+                                         Shader.TileMode.CLAMP);
+        greenBlue = new RadialGradient(0, 0, ICON_WIDTH * 3,
+                                       Color.GREEN, Color.BLUE,
+                                       Shader.TileMode.CLAMP);
+
+        histogram = new LinearGradient(ICON_WIDTH, 0,
+                                       -ICON_WIDTH, 0,
+                                       colours, null,
+                                       Shader.TileMode.CLAMP);
     }
 
     @Override
@@ -128,63 +155,62 @@ public class Draw extends View
     protected void onDraw(Canvas canvas)
     {
 	canvas.translate(width / 2, height / 2);
-	drawIcon(canvas);
+	drawHistogramIcon(canvas);
     }
 
-    protected void drawIcon(Canvas canvas)
+    protected void drawHistogramIcon(Canvas canvas)
     {
-	// Square
+	paint.setStyle(Paint.Style.FILL);
+	paint.setAntiAlias(true);
+
+	paint.setShader(black);
+	canvas.drawRoundRect(rect, STEP, STEP, paint);
+
+	paint.setStrokeCap(Paint.Cap.BUTT);
+	paint.setShader(darkgreen);
+	paint.setStrokeWidth(8);
+
+	for (int i = -(ICON_WIDTH - STEP); i <= ICON_WIDTH - STEP; i += STEP)
+	    canvas.drawLine(i, -ICON_WIDTH, i, ICON_WIDTH, paint);
+
+	for (int i = -(ICON_WIDTH - STEP); i <= ICON_WIDTH - STEP; i += STEP)
+	    canvas.drawLine(-ICON_WIDTH, i, ICON_WIDTH, i, paint);
+
 	path.rewind();
-	path.moveTo(-ICON_WIDTH, 0);
-        path.lineTo(0, -YSTEP * 3);
-        path.lineTo(0, YSTEP * 3);
-        path.lineTo(ICON_WIDTH, 0);
+	path.moveTo(ICON_WIDTH, ICON_WIDTH - STEP);
+	path.lineTo(-ICON_WIDTH, ICON_WIDTH - STEP);
 
-	paint.setShader(null);
-  	paint.setColor(Color.argb(153, 51, 51, 51));
-	paint.setStrokeWidth(16);
-	paint.setStyle(Paint.Style.STROKE);
-	paint.setStrokeCap(Paint.Cap.ROUND);
-	canvas.drawPath(path, paint);
-    }
+	float a = STEP * 6;
+	float b = 0;
+	float c = 112;
 
-    protected void drawSquareIcon(Canvas canvas)
-    {
-	// Square
-	path.rewind();
-	path.moveTo(-ICON_WIDTH, 0);
-        path.lineTo(-ICON_WIDTH, -YSTEP * 3);
-        path.lineTo(0, -YSTEP * 3);
-        path.lineTo(0, YSTEP * 3);
-        path.lineTo(ICON_WIDTH, YSTEP * 3);
-        path.lineTo(ICON_WIDTH, 0);
-
-	paint.setShader(null);
-  	paint.setColor(Color.argb(153, 51, 51, 51));
-	paint.setStrokeWidth(16);
-	paint.setStyle(Paint.Style.STROKE);
-	paint.setStrokeCap(Paint.Cap.ROUND);
-	canvas.drawPath(path, paint);
-    }
-
-    protected void drawSineIcon(Canvas canvas)
-    {
-	// Sine
-	path.rewind();
-	path.moveTo(-ICON_WIDTH, 0);
 	for (int x = -ICON_WIDTH; x <= ICON_WIDTH; x++)
 	{
-	    float y = (float)
-		Math.sin(x * 1 * Math.PI / ICON_WIDTH) * YSTEP * 3;
+	    float y = ICON_WIDTH - STEP - a *
+		(float)Math.exp(-((x - b) * (x - b)) / (2 * c * c));
 	    path.lineTo(x, y);
 	}
 
-	paint.setShader(null);
-  	paint.setColor(Color.argb(153, 51, 51, 51));
-	paint.setStrokeWidth(16);
-	paint.setStyle(Paint.Style.STROKE);
-	paint.setStrokeCap(Paint.Cap.ROUND);
+	paint.setShader(histogram);
+	paint.setStyle(Paint.Style.FILL_AND_STROKE);
+	paint.setStrokeWidth(8);
 	canvas.drawPath(path, paint);
+    }
+
+    protected void drawPollenIcon(Canvas canvas)
+    {
+	paint.setAntiAlias(true);
+	paint.setShader(greenBlue);
+	paint.setStyle(Paint.Style.FILL);
+        canvas.drawRoundRect(rect, STEP, STEP, paint);
+
+	paint.setShader(null);
+        paint.setColor(Color.WHITE);
+        paint.setTextAlign(Paint.Align.CENTER);
+	paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        paint.setTypeface(Typeface.create((String)null, Typeface.BOLD));
+        paint.setTextSize(ICON_WIDTH);
+        canvas.drawText("L", 0, 96, paint);
     }
 
     protected void drawRainbowIcon(Canvas canvas)
@@ -373,8 +399,8 @@ public class Draw extends View
 	path.rewind();
 	path.moveTo(-ICON_WIDTH, ICON_WIDTH - STEP);
 
-	float a = 320;
-	float b = -STEP;
+	float a = 372;
+	float b = 0;
 	float c = 32;
 
 	for (int x = -ICON_WIDTH; x <= ICON_WIDTH; x++)
@@ -387,7 +413,7 @@ public class Draw extends View
 	paint.setShader(green);
 	canvas.drawPath(path, paint);
 
-	paint.setShader(yellow);
-	canvas.drawLine(-STEP, -ICON_WIDTH, -STEP, ICON_WIDTH, paint);
+	// paint.setShader(yellow);
+	// canvas.drawLine(-STEP, -ICON_WIDTH, -STEP, ICON_WIDTH, paint);
     }
 }
