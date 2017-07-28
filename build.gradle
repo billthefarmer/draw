@@ -12,11 +12,11 @@ buildscript {
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 'android-25'
+    compileSdkVersion 'android-22'
     buildToolsVersion '25.0.2'
 
     lintOptions {
 	disable 'IconDensities'
-	// abortOnError false
+	abortOnError false
     }
 }
