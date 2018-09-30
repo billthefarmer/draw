@@ -396,6 +396,7 @@ public class Draw extends View
         canvas.drawPath(path, paint);
     }
 
+    @SuppressWarnings("deprecation")
     protected void drawStrobeIcon(Canvas canvas)
     {
         paint.setStyle(Paint.Style.FILL);
