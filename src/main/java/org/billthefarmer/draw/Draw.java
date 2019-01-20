@@ -154,7 +154,7 @@ public class Draw extends View
     protected void onDraw(Canvas canvas)
     {
         canvas.translate(width / 2, height / 2);
-        drawSigGenIcon(canvas);
+        drawTDRIcon(canvas);
     }
 
     protected void drawSudokuIcon(Canvas canvas)
@@ -449,5 +449,55 @@ public class Draw extends View
 
         // paint.setShader(yellow);
         // canvas.drawLine(-STEP, -ICON_WIDTH, -STEP, ICON_WIDTH, paint);
+    }
+
+    protected void drawTDRIcon(Canvas canvas)
+    {
+        paint.setStyle(Paint.Style.FILL);
+        paint.setAntiAlias(true);
+
+        paint.setShader(black);
+        canvas.drawRoundRect(rect, STEP, STEP, paint);
+
+        paint.setStrokeCap(Paint.Cap.BUTT);
+        paint.setShader(darkgreen);
+        paint.setStrokeWidth(8);
+
+        for (int i = -(ICON_WIDTH - STEP); i <= ICON_WIDTH - STEP; i += STEP)
+            canvas.drawLine(i, -ICON_WIDTH, i, ICON_WIDTH, paint);
+
+        for (int i = -(ICON_WIDTH - STEP); i <= ICON_WIDTH - STEP; i += STEP)
+            canvas.drawLine(-ICON_WIDTH, i, ICON_WIDTH, i, paint);
+
+        path.rewind();
+        path.moveTo(-ICON_WIDTH, 0);
+
+        float a = STEP * 3;
+        float b = -ICON_WIDTH + STEP;
+        float c = 8;
+
+        for (int x = -ICON_WIDTH; x <= 0; x++)
+        {
+            float y = -a * (float) Math.exp(-((x - b) * (x - b)) / (2 * c * c));
+            path.lineTo(x, y);
+        }
+
+        a = -STEP * 2;
+        b = STEP * 3;
+
+        for (int x = 0; x <= ICON_WIDTH; x++)
+        {
+            float y = -a * (float) Math.exp(-((x - b) * (x - b)) / (2 * c * c));
+            path.lineTo(x, y);
+        } 
+
+        paint.setShader(green);
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeCap(Paint.Cap.ROUND);
+        paint.setStrokeJoin(Paint.Join.ROUND);
+        canvas.drawPath(path, paint);
+
+        paint.setShader(yellow);
+        canvas.drawLine(STEP * 3, -ICON_WIDTH, STEP * 3, ICON_WIDTH, paint);
     }
 }

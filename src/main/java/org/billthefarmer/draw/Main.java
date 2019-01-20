@@ -71,7 +71,7 @@ public class Main extends Activity
         canvas.translate(WIDTH / 2, WIDTH / 2);
 
         if (draw != null)
-            draw.drawSudokuIcon(canvas);
+            draw.drawTDRIcon(canvas);
 
         try
         {
