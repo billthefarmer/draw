@@ -16,10 +16,10 @@ import android.view.View;
 
 public class Draw extends View
 {
-    public static final int STEP = 62;
-    public static final int XSTEP = 62;
+    public static final int STEP = 48;
+    public static final int XSTEP = 48;
     public static final int YSTEP = 48;
-    public static final int ICON_WIDTH = 248;
+    public static final int ICON_WIDTH = 224;
 
     private static final int colours[] =
     {
@@ -154,7 +154,7 @@ public class Draw extends View
     protected void onDraw(Canvas canvas)
     {
         canvas.translate(width / 2, height / 2);
-        drawTDRIcon(canvas);
+        drawCrosswordIcon(canvas);
     }
 
     protected void drawSudokuIcon(Canvas canvas)
