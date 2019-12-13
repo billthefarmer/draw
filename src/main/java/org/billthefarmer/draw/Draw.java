@@ -16,7 +16,7 @@ import android.view.View;
 
 public class Draw extends View
 {
-    public static final int STEP = 48;
+    public static final int STEP = 64;
     public static final int XSTEP = 48;
     public static final int YSTEP = 48;
     public static final int ICON_WIDTH = 224;
@@ -154,7 +154,7 @@ public class Draw extends View
     protected void onDraw(Canvas canvas)
     {
         canvas.translate(width / 2, height / 2);
-        drawCrosswordIcon(canvas);
+        drawTunerIcon(canvas);
     }
 
     protected void drawSudokuIcon(Canvas canvas)
@@ -418,9 +418,10 @@ public class Draw extends View
         paint.setStyle(Paint.Style.FILL);
         paint.setAntiAlias(true);
         canvas.drawRoundRect(rect, STEP, STEP, paint);
-        canvas.clipRect(rect);
+        // canvas.clipRect(rect);
 
         paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeCap(Paint.Cap.BUTT);
         paint.setShader(darkgreen);
         paint.setStrokeWidth(8);
 
@@ -433,8 +434,8 @@ public class Draw extends View
         path.rewind();
         path.moveTo(-ICON_WIDTH, ICON_WIDTH - STEP);
 
-        float a = 372;
-        float b = 0;
+        float a = 320;
+        float b = -STEP;
         float c = 32;
 
         for (int x = -ICON_WIDTH; x <= ICON_WIDTH; x++)
@@ -445,10 +446,12 @@ public class Draw extends View
         }
 
         paint.setShader(green);
+        paint.setStrokeCap(Paint.Cap.ROUND);
         canvas.drawPath(path, paint);
 
-        // paint.setShader(yellow);
-        // canvas.drawLine(-STEP, -ICON_WIDTH, -STEP, ICON_WIDTH, paint);
+        paint.setShader(yellow);
+        paint.setStrokeCap(Paint.Cap.ROUND);
+        canvas.drawLine(-STEP, -ICON_WIDTH, -STEP, ICON_WIDTH, paint);
     }
 
     protected void drawTDRIcon(Canvas canvas)
