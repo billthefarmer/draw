@@ -48,15 +48,24 @@ public class Main extends Activity
         int id = item.getItemId();
         switch (id)
         {
-        // Settings
-
         case R.id.action_save:
             saveIcon();
-
-            return true;
+            break;
 
         default:
-            return false;
+            drawIcon(id);
+            break;
+        }
+        return true;
+    }
+
+    // drawIcon
+    private void drawIcon(int id)
+    {
+        if (draw != null)
+        {
+            draw.icon = id;
+            draw.invalidate();
         }
     }
 
@@ -71,15 +80,13 @@ public class Main extends Activity
         canvas.translate(WIDTH / 2, WIDTH / 2);
 
         if (draw != null)
-            draw.drawTunerIcon(canvas);
+            draw.drawIcon(canvas);
 
-        try
+        File file = new File(getExternalFilesDir(null), "icon.png");
+             
+        try (FileOutputStream stream = new FileOutputStream(file))
         {
-            File file = new File(getExternalFilesDir(null), "icon.png");
-            FileOutputStream stream = new FileOutputStream(file);
-
             bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
-            stream.close();
         }
         catch (Exception e)
         {

@@ -21,11 +21,13 @@ public class Draw extends View
     public static final int YSTEP = 48;
     public static final int ICON_WIDTH = 224;
 
-    private static final int colours[] =
+    public static final int colours[] =
     {
         Color.MAGENTA, Color.BLUE, Color.CYAN,
         Color.GREEN, Color.YELLOW, Color.RED
     };
+
+    public static int icon;
 
     private int width;
     private int height;
@@ -154,7 +156,69 @@ public class Draw extends View
     protected void onDraw(Canvas canvas)
     {
         canvas.translate(width / 2, height / 2);
-        drawTunerIcon(canvas);
+        drawIcon(canvas);
+
+        paint.setShader(null);
+        paint.setColor(Color.WHITE);
+        paint.setStrokeWidth(0);
+        canvas.drawLine(-width / 2, -Main.WIDTH / 2,
+                        width / 2, -Main.WIDTH / 2, paint);
+        canvas.drawLine(-width / 2, Main.WIDTH / 2,
+                        width / 2, Main.WIDTH / 2, paint);
+        canvas.drawLine(-Main.WIDTH / 2, -height / 2,
+                        -Main.WIDTH / 2, height / 2, paint);
+        canvas.drawLine(Main.WIDTH / 2, -height / 2,
+                        Main.WIDTH / 2, height / 2, paint);
+     }
+
+    protected void drawIcon(Canvas canvas)
+    {
+        switch (icon)
+        {
+        case R.id.sudoku:
+            drawSudokuIcon(canvas);
+            break;
+
+        case R.id.histogram:
+            drawHistogramIcon(canvas);
+            break;
+
+        case R.id.pollen:
+            drawPollenIcon(canvas);
+            break;
+
+        case R.id.rainbow:
+            drawRainbowIcon(canvas);
+            break;
+
+        case R.id.crossword:
+            drawCrosswordIcon(canvas);
+            break;
+
+        case R.id.scope:
+            drawScopeIcon(canvas);
+            break;
+
+        case R.id.siggen:
+            drawSigGenIcon(canvas);
+            break;
+
+        case R.id.strobe:
+            drawStrobeIcon(canvas);
+            break;
+
+        case R.id.tuner:
+            drawTunerIcon(canvas);
+            break;
+
+        case R.id.tdr:
+            drawTDRIcon(canvas);
+            break;
+
+        case R.id.action_draw:
+            drawHistogramIcon(canvas);
+            break;
+        }
     }
 
     protected void drawSudokuIcon(Canvas canvas)
@@ -405,11 +469,13 @@ public class Draw extends View
         paint.setShader(olive);
         canvas.drawRoundRect(rect, STEP, STEP, paint);
 
+        canvas.save();
         canvas.clipRect(topRight);
         paint.setShader(aqua);
         canvas.drawRoundRect(rect, STEP, STEP, paint);
         canvas.clipRect(bottomLeft, Region.Op.REPLACE);
         canvas.drawRoundRect(rect, STEP, STEP, paint);
+        canvas.restore();
     }
 
     protected void drawTunerIcon(Canvas canvas)

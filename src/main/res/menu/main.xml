@@ -1,10 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:id="@+id/action_save"
-        android:icon="@drawable/ic_action_save"
-        android:showAsAction="ifRoom"
-        android:title="@string/save" />
+  <item
+      android:id="@+id/action_draw"
+      android:icon="@drawable/ic_action_picture"
+      android:showAsAction="ifRoom"
+      android:title="@string/draw">
+    <menu>
+      <group android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/sudoku"
+            android:showAsAction="never"
+            android:title="@string/sudoku" />
+
+        <item
+            android:id="@+id/histogram"
+            android:showAsAction="never"
+            android:title="@string/histogram" />
+
+        <item
+            android:id="@+id/pollen"
+            android:showAsAction="never"
+            android:title="@string/pollen" />
+
+        <item
+            android:id="@+id/rainbow"
+            android:showAsAction="never"
+            android:title="@string/rainbow" />
+
+        <item
+            android:id="@+id/crossword"
+            android:showAsAction="never"
+            android:title="@string/crossword" />
+
+        <item
+            android:id="@+id/scope"
+            android:showAsAction="never"
+            android:title="@string/scope" />
+
+        <item
+            android:id="@+id/siggen"
+            android:showAsAction="never"
+            android:title="@string/siggen" />
+
+        <item
+            android:id="@+id/strobe"
+            android:showAsAction="never"
+            android:title="@string/strobe" />
+
+        <item
+            android:id="@+id/tuner"
+            android:showAsAction="never"
+            android:title="@string/tuner" />
+
+        <item
+            android:id="@+id/tdr"
+            android:showAsAction="never"
+            android:title="@string/tdr" />
+
+      </group>
+    </menu>
+  </item>
+
+  <item
+      android:id="@+id/action_save"
+      android:icon="@drawable/ic_action_save"
+      android:showAsAction="ifRoom"
+      android:title="@string/save" />
 
 </menu>

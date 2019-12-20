@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Draw</string>
-    <string name="save">Save</string>
+
+  <string name="app_name">Draw</string>
+  <string name="draw">Draw…</string>
+  <string name="save">Save</string>
+
+  <string name="sudoku">Sudoku</string>
+  <string name="histogram">Histogram</string>
+  <string name="pollen">Pollen</string>
+  <string name="rainbow">Rainbow</string>
+  <string name="crossword">Crossword</string>
+  <string name="scope">Scope</string>
+  <string name="siggen">SigGen</string>
+  <string name="strobe">Strobe</string>
+  <string name="tuner">Tuner</string>
+  <string name="tdr">TDR</string>
+
 </resources>
