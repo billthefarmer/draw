@@ -17,7 +17,7 @@ import android.view.View;
 public class Draw extends View
 {
     public static final int STEP = 64;
-    public static final int XSTEP = 48;
+    public static final int XSTEP = 56;
     public static final int YSTEP = 48;
     public static final int ICON_WIDTH = 224;
 
@@ -159,6 +159,7 @@ public class Draw extends View
         drawIcon(canvas);
 
         paint.setShader(null);
+        paint.setTextAlign(Paint.Align.LEFT);
         paint.setColor(Color.WHITE);
         paint.setStrokeWidth(0);
         canvas.drawLine(-width / 2, -Main.WIDTH / 2,
@@ -213,10 +214,6 @@ public class Draw extends View
 
         case R.id.tdr:
             drawTDRIcon(canvas);
-            break;
-
-        case R.id.action_draw:
-            drawHistogramIcon(canvas);
             break;
         }
     }
@@ -290,6 +287,7 @@ public class Draw extends View
 
         paint.setShader(histogram);
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
+        paint.setStrokeCap(Paint.Cap.ROUND);
         paint.setStrokeWidth(8);
         canvas.drawPath(path, paint);
     }
@@ -328,6 +326,7 @@ public class Draw extends View
 
         paint.setShader(black);
         paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeCap(Paint.Cap.ROUND);
         paint.setStrokeWidth(16);
         canvas.drawRoundRect(rect, STEP, STEP, paint);
 
@@ -367,6 +366,7 @@ public class Draw extends View
         canvas.drawRoundRect(rect, STEP, STEP, paint);
         // canvas.clipRect(rect);
 
+        paint.setStyle(Paint.Style.STROKE);
         paint.setStrokeCap(Paint.Cap.BUTT);
         paint.setShader(darkgreen);
         paint.setStrokeWidth(8);
@@ -470,10 +470,12 @@ public class Draw extends View
         canvas.drawRoundRect(rect, STEP, STEP, paint);
 
         canvas.save();
+        canvas.save();
         canvas.clipRect(topRight);
         paint.setShader(aqua);
         canvas.drawRoundRect(rect, STEP, STEP, paint);
-        canvas.clipRect(bottomLeft, Region.Op.REPLACE);
+        canvas.restore();
+        canvas.clipRect(bottomLeft);
         canvas.drawRoundRect(rect, STEP, STEP, paint);
         canvas.restore();
     }

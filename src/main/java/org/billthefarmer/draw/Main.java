@@ -48,6 +48,9 @@ public class Main extends Activity
         int id = item.getItemId();
         switch (id)
         {
+        case R.id.action_draw:
+            break;
+
         case R.id.action_save:
             saveIcon();
             break;
