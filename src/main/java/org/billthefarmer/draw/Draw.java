@@ -330,13 +330,13 @@ public class Draw extends View
         paint.setStrokeWidth(16);
         canvas.drawRoundRect(rect, STEP, STEP, paint);
 
-        canvas.drawLine(-ICON_WIDTH / 3, -ICON_WIDTH, -ICON_WIDTH / 3,
-                        ICON_WIDTH, paint);
-        canvas.drawLine(ICON_WIDTH / 3, -ICON_WIDTH, ICON_WIDTH / 3,
-                        ICON_WIDTH, paint);
-        canvas.drawLine(-ICON_WIDTH, -ICON_WIDTH / 3, ICON_WIDTH,
+        canvas.drawLine(-ICON_WIDTH / 3, -ICON_WIDTH - 8, -ICON_WIDTH / 3,
+                        ICON_WIDTH + 8, paint);
+        canvas.drawLine(ICON_WIDTH / 3, -ICON_WIDTH - 8, ICON_WIDTH / 3,
+                        ICON_WIDTH + 8, paint);
+        canvas.drawLine(-ICON_WIDTH - 8, -ICON_WIDTH / 3, ICON_WIDTH + 8,
                         -ICON_WIDTH / 3, paint);
-        canvas.drawLine(-ICON_WIDTH, ICON_WIDTH / 3, ICON_WIDTH,
+        canvas.drawLine(-ICON_WIDTH - 8, ICON_WIDTH / 3, ICON_WIDTH + 8,
                         ICON_WIDTH / 3, paint);
 
         paint.setTextSize(ICON_WIDTH / 2);
@@ -554,7 +554,7 @@ public class Draw extends View
         }
 
         a = -STEP * 2;
-        b = STEP * 3;
+        b = STEP * 2.5f;
 
         for (int x = 0; x <= ICON_WIDTH; x++)
         {
@@ -569,6 +569,6 @@ public class Draw extends View
         canvas.drawPath(path, paint);
 
         paint.setShader(yellow);
-        canvas.drawLine(STEP * 3, -ICON_WIDTH, STEP * 3, ICON_WIDTH, paint);
+        canvas.drawLine(STEP * 2.5f, -ICON_WIDTH, STEP * 2.5f, ICON_WIDTH, paint);
     }
 }
