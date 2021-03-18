@@ -380,8 +380,8 @@ public class Draw extends View
         path.rewind();
 
         // Sine
-        path.moveTo(-ICON_WIDTH, 0);
-        for (int x = -ICON_WIDTH; x <= ICON_WIDTH; x++)
+        path.moveTo(-ICON_WIDTH - 8, 16);
+        for (int x = -ICON_WIDTH - 8; x <= ICON_WIDTH + 8; x++)
         {
             float y = (float)
                       Math.sin(x * 1 * Math.PI / ICON_WIDTH) * YSTEP * 3;
@@ -415,8 +415,8 @@ public class Draw extends View
         path.rewind();
 
         // Sine
-        path.moveTo(-ICON_WIDTH, -ICON_WIDTH + (STEP * 3) / 2);
-        for (int x = -ICON_WIDTH; x <= ICON_WIDTH; x++)
+        path.moveTo(-ICON_WIDTH - 8, -ICON_WIDTH + (STEP * 3) / 2 + 12);
+        for (int x = -ICON_WIDTH - 8; x <= ICON_WIDTH + 8; x++)
         {
             float y = -ICON_WIDTH + (STEP * 3) / 2 - (float)
                       Math.sin(x * 2 * Math.PI / ICON_WIDTH) * YSTEP;
@@ -424,36 +424,36 @@ public class Draw extends View
         }
 
         // Square
-        path.moveTo(-ICON_WIDTH, 0);
+        path.moveTo(-ICON_WIDTH - 8, 0);
         path.rLineTo(0, -YSTEP);
-        path.rLineTo(XSTEP, 0);
+        path.rLineTo(XSTEP + 2, 0);
         path.rLineTo(0, YSTEP * 2);
-        path.rLineTo(XSTEP, 0);
+        path.rLineTo(XSTEP + 2, 0);
         path.rLineTo(0, -YSTEP * 2);
-        path.rLineTo(XSTEP, 0);
+        path.rLineTo(XSTEP + 2, 0);
         path.rLineTo(0, YSTEP * 2);
-        path.rLineTo(XSTEP, 0);
+        path.rLineTo(XSTEP + 2, 0);
         path.rLineTo(0, -YSTEP * 2);
-        path.rLineTo(XSTEP, 0);
+        path.rLineTo(XSTEP + 2, 0);
         path.rLineTo(0, YSTEP * 2);
-        path.rLineTo(XSTEP, 0);
+        path.rLineTo(XSTEP + 2, 0);
         path.rLineTo(0, -YSTEP * 2);
-        path.rLineTo(XSTEP, 0);
+        path.rLineTo(XSTEP + 2, 0);
         path.rLineTo(0, YSTEP * 2);
-        path.rLineTo(XSTEP, 0);
+        path.rLineTo(XSTEP + 2, 0);
         path.rLineTo(0, -YSTEP);
 
         // Sawtooth
-        path.moveTo(-ICON_WIDTH, ICON_WIDTH - (STEP * 3) / 2);
-        path.rLineTo(XSTEP, -YSTEP);
+        path.moveTo(-ICON_WIDTH - 8, ICON_WIDTH - (STEP * 3) / 2);
+        path.rLineTo(XSTEP + 2, -YSTEP);
         path.rLineTo(0, YSTEP * 2);
-        path.rLineTo(XSTEP * 2, -YSTEP * 2);
+        path.rLineTo(XSTEP * 2 + 4, -YSTEP * 2);
         path.rLineTo(0, YSTEP * 2);
-        path.rLineTo(XSTEP * 2, -YSTEP * 2);
+        path.rLineTo(XSTEP * 2 + 4, -YSTEP * 2);
         path.rLineTo(0, YSTEP * 2);
-        path.rLineTo(XSTEP * 2, -YSTEP * 2);
+        path.rLineTo(XSTEP * 2 + 4, -YSTEP * 2);
         path.rLineTo(0, YSTEP * 2);
-        path.rLineTo(XSTEP, -YSTEP);
+        path.rLineTo(XSTEP + 2, -YSTEP);
 
         paint.setShader(green);
         paint.setStrokeCap(Paint.Cap.ROUND);
@@ -500,13 +500,13 @@ public class Draw extends View
             canvas.drawLine(-ICON_WIDTH, i, ICON_WIDTH, i, paint);
 
         path.rewind();
-        path.moveTo(-ICON_WIDTH, ICON_WIDTH - STEP);
+        path.moveTo(-ICON_WIDTH - 8, ICON_WIDTH - STEP);
 
         float a = 320;
         float b = -STEP;
         float c = 32;
 
-        for (int x = -ICON_WIDTH; x <= ICON_WIDTH; x++)
+        for (int x = -ICON_WIDTH - 8; x <= ICON_WIDTH + 8; x++)
         {
             float y = ICON_WIDTH - STEP - a *
                       (float) Math.exp(-((x - b) * (x - b)) / (2 * c * c));
@@ -519,7 +519,7 @@ public class Draw extends View
 
         paint.setShader(yellow);
         paint.setStrokeCap(Paint.Cap.ROUND);
-        canvas.drawLine(-STEP, -ICON_WIDTH, -STEP, ICON_WIDTH, paint);
+        canvas.drawLine(-STEP, -ICON_WIDTH - 8, -STEP, ICON_WIDTH + 8, paint);
     }
 
     protected void drawTDRIcon(Canvas canvas)

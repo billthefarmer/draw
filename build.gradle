@@ -5,7 +5,7 @@ buildscript {
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.5.3'
+        classpath 'com.android.tools.build:gradle:4.1.2'
     }
 }
 
@@ -24,7 +24,7 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 28
-    buildToolsVersion '29.0.2'
+    buildToolsVersion '29.0.3'
     defaultConfig {
         applicationId "org.billthefarmer.draw"
         minSdkVersion 14
@@ -39,7 +39,7 @@ android {
     }
 
     lintOptions {
-        disable 'IconDensities'
+        disable 'IconDensities', 'OldTargetApi', 'NonConstantResourceId'
         abortOnError false
     }
 }

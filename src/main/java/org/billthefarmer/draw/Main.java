@@ -28,7 +28,6 @@ public class Main extends Activity
     }
 
     // On create option menu
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu)
     {
@@ -39,12 +38,10 @@ public class Main extends Activity
     }
 
     // On options item
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item)
     {
         // Get id
-
         int id = item.getItemId();
         switch (id)
         {
@@ -59,6 +56,7 @@ public class Main extends Activity
             drawIcon(id);
             break;
         }
+
         return true;
     }
 
